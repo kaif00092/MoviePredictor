@@ -32,7 +32,7 @@ df = df[(df['budget'] > 0) & (df['revenue'] > 0)]
 # Missing values handle 
 df['runtime'].fillna(df['runtime'].mean(), inplace=True)
 
-# JSON columns se data nikalna (e.g., genre count)
+# JSON columns se data nikalna
 def get_json_list_count(json_str):
     try:
         return len(json.loads(json_str))
@@ -43,7 +43,7 @@ df['genre_count'] = df['genres'].apply(get_json_list_count)
 df['company_count'] = df['production_companies'].apply(get_json_list_count)
 
 # Target variable banayein: 'Success' ya 'Flop'
-# Agar movie ne apne budget se 1.5 guna zyada kamaya, to 'Success' (1), varna 'Flop' (0)
+# Agar movie ne apne budget se 1.5x zyada kamaya, to 'Success' (1), varna 'Flop' (0)
 df['success'] = (df['revenue'] > df['budget'] * 1.5).astype(int)
 
 print(f"Total movies in dataset after cleaning: {len(df)}")
